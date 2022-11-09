@@ -129,16 +129,22 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ],
                 ),
-                Row(
-                  children: <Widget>[
-                    Image.network(
-                      '//cdn.weatherapi.com/v4/images/weatherapi_logo.png',
-                    ),
-                    Text(
-                      'Powered by WeatherAPI.com',
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(
+                        'https://cdn.weatherapi.com/v4/images/weatherapi_logo.png',
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Powered by WeatherAPI.com',
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
