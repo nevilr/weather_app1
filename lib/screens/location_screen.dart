@@ -48,15 +48,15 @@ class _LocationScreenState extends State<LocationScreen> {
       data: ThemeData.light(),
       child: Scaffold(
         body: Container(
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //     image: AssetImage('gifs/location_background.gif'),
-          //     fit: BoxFit.cover,
-          //     colorFilter: ColorFilter.mode(
-          //         Colors.white.withOpacity(0), BlendMode.dstATop),
-          //   ),
-          // ),
-          // constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images_and_icons/location_day_background.jpg'),
+              fit: BoxFit.cover,
+              // colorFilter: ColorFilter.mode(
+              //     Colors.white.withOpacity(0), BlendMode.dstATop),
+            ),
+          ),
+          constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,8 +72,8 @@ class _LocationScreenState extends State<LocationScreen> {
                       },
                       child: Icon(
                         Icons.near_me,
-                        size: 40.0,
-                        color: Colors.blueGrey,
+                        size: 30.0,
+                        color: Colors.white,
                       ),
                     ),
                     TextButton(
@@ -93,9 +93,9 @@ class _LocationScreenState extends State<LocationScreen> {
                         }
                       },
                       child: Icon(
-                        Icons.location_city,
-                        size: 40.0,
-                        color: Colors.blueGrey,
+                        Icons.search,
+                        size: 30.0,
+                        color: Colors.white,
                       ),
                     ),
                   ],

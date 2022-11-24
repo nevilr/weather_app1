@@ -30,9 +30,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images_and_icons/location_background.jpg
     - images_and_icons/weather/64x64/day/
     - images_and_icons/weather/64x64/night/
+    - images_and_icons/
     - gifs/
   #   - images/a_dot_ham.jpeg
 

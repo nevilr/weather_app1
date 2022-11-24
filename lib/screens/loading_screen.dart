@@ -42,20 +42,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
         children: <Widget>[
           Center(
               child: Image(
-            fit: BoxFit.contain,
-            image: AssetImage('gifs/loading_Gif.gif'),
+            image: AssetImage('images_and_icons/loading_background.png'),
+            width: MediaQuery.of(context).size.width * 0.65,
+            height: MediaQuery.of(context).size.height * 0.50,
           )),
-          // Padding(
-          //   padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-          //   child: Text(
-          //     '"Please wait while the little elves draw the weather for you!"',
-          //     style: TextStyle(
-          //       fontStyle: FontStyle.italic,
-          //       fontSize: 20,
-          //       letterSpacing: 2,
-          //     ),
-          //   ),
-          // )
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Text(
+              'Current Weather',
+              style: TextStyle(
+                fontSize: 30,
+                letterSpacing: 2,
+              ),
+            ),
+          )
         ],
       ),
     );
