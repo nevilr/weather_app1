@@ -50,7 +50,8 @@ class _LocationScreenState extends State<LocationScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images_and_icons/location_day_background.jpg'),
+              image:
+                  AssetImage('images_and_icons/location_night_background.jpg'),
               fit: BoxFit.cover,
               // colorFilter: ColorFilter.mode(
               //     Colors.white.withOpacity(0), BlendMode.dstATop),
@@ -75,6 +76,19 @@ class _LocationScreenState extends State<LocationScreen> {
                         size: 30.0,
                         color: Colors.white,
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '$city',
+                          style: kMessageTextStyle,
+                        ),
+                      ],
                     ),
                     TextButton(
                       onPressed: () async {
@@ -115,19 +129,6 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.near_me),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '$city',
-                      style: kMessageTextStyle,
-                    ),
-                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
