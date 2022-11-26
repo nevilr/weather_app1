@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app1/screens/place_screen.dart';
 import 'package:weather_app1/utilities/constants.dart';
 import 'package:weather_app1/services/weather.dart';
+import 'package:jiffy/jiffy.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({this.locationWeatherInfo});
@@ -13,8 +14,11 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   WeatherHelper weatherHelper = WeatherHelper();
   int currentTemperature = 0;
+  int todayHighTemp = 0;
+  int todayLowTemp = 0;
   String tempMessage = '';
   String conditionCode = '';
+  String condition = '';
   String city = '';
   String nullMessage = '';
   @override
@@ -28,16 +32,26 @@ class _LocationScreenState extends State<LocationScreen> {
       if (weatherInfo == null) {
         currentTemperature = 0;
         conditionCode = 'Error';
+        condition = 'Error';
+        todayHighTemp = 0;
+        todayLowTemp = 0;
         nullMessage = 'Unable to Fetch Data.';
         tempMessage = '';
         return;
       }
       double currentTemp = weatherInfo['current']['temp_c'];
+      double todayHigh =
+          weatherInfo["forecast"]["forecastday"][0]["day"]["maxtemp_c"];
+      double todayLow =
+          weatherInfo["forecast"]["forecastday"][0]["day"]["mintemp_c"];
       currentTemperature = currentTemp.toInt();
+      todayHighTemp = todayHigh.toInt();
+      todayLowTemp = todayLow.toInt();
       tempMessage = weatherHelper.WeatherMessage(currentTemperature);
       conditionCode = weatherHelper.WeatherIcon(
           weatherInfo['current']['condition']['code'],
           weatherInfo['current']['is_day']);
+      condition = weatherInfo["current"]["condition"]["text"];
       city = weatherInfo['location']['name'];
     });
   }
@@ -50,8 +64,7 @@ class _LocationScreenState extends State<LocationScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image:
-                  AssetImage('images_and_icons/location_night_background.jpg'),
+              image: AssetImage('images_and_icons/location_day_background.jpg'),
               fit: BoxFit.cover,
               // colorFilter: ColorFilter.mode(
               //     Colors.white.withOpacity(0), BlendMode.dstATop),
@@ -81,6 +94,11 @@ class _LocationScreenState extends State<LocationScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 20.0,
+                          color: Colors.white,
+                        ),
                         SizedBox(
                           width: 10,
                         ),
@@ -114,21 +132,92 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(
-                        '$currentTemperature°',
-                        style: kTempTextStyle,
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        20.0,
+                        0,
+                        10.0,
                       ),
-                      Image(
-                        image: AssetImage('$conditionCode'),
-                        // style: kConditionTextStyle,
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image(
+                                image: AssetImage(
+                                  '$conditionCode',
+                                ),
+                              ),
+                              SizedBox(
+                                width: 50.0,
+                              ),
+                              Text(
+                                '$currentTemperature°',
+                                style: kTempTextStyle,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                '$condition°',
+                                style: kConditionTextStyle,
+                              ),
+                              SizedBox(
+                                width: 30.0,
+                              ),
+                              Icon(
+                                Icons.arrow_upward,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                '$todayHighTemp°',
+                                style: kConditionTextStyle,
+                              ),
+                              SizedBox(
+                                width: 30.0,
+                              ),
+                              Icon(
+                                Icons.arrow_downward,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                '$todayLowTemp°',
+                                style: kConditionTextStyle,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Divider(
+                      color: Colors.white,
+                      thickness: 0.6,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'DAILY FORECAST',
+                            style: kForeCastHeaderStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
