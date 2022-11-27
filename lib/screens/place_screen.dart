@@ -19,7 +19,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                  'images_and_icons/location_day-clear_background.webp'),
+                  'images_and_icons/location_day-sunny_background.webp'),
               fit: BoxFit.cover,
             ),
           ),
