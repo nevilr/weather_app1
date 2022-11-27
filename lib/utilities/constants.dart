@@ -23,11 +23,29 @@ const kConditionTextStyle = TextStyle(
 const kButtonTextStyle = TextStyle(
   fontSize: 30.0,
   fontFamily: 'Spartan MB',
-  color: Colors.blueGrey,
+  color: Colors.white,
 );
 
 const kForeCastHeaderStyle = TextStyle(
   fontSize: 20.0,
+  fontFamily: 'Spartan MB',
+  color: Colors.white,
+);
+
+const kInputLabelStyle = TextStyle(
+  fontSize: 15.0,
+  fontFamily: 'Spartan MB',
+  color: Colors.white,
+);
+
+const kInputTextStyle = TextStyle(
+  fontSize: 20.0,
+  fontFamily: 'Spartan MB',
+  color: Colors.white,
+);
+
+const kSubHeaderStyle = TextStyle(
+  fontSize: 12.0,
   fontFamily: 'Spartan MB',
   color: Colors.white,
 );

@@ -16,13 +16,14 @@ class _PlaceScreenState extends State<PlaceScreen> {
       data: ThemeData.light(),
       child: Scaffold(
         body: Container(
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //     image: AssetImage('images/city_background.jpg'),
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
-          // constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image:
+                  AssetImage('images_and_icons/location_night_background.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
               children: <Widget>[
@@ -34,8 +35,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     },
                     child: Icon(
                       Icons.arrow_back_ios,
-                      size: 40.0,
-                      color: Colors.blueGrey,
+                      size: 30.0,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -45,15 +46,14 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     onChanged: (value) {
                       placeName = value;
                     },
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
+                    style: kInputTextStyle,
                     decoration: new InputDecoration(
                       labelText: 'City',
+                      labelStyle: kInputLabelStyle,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.black,
+                          color: Colors.white,
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.all(
@@ -62,7 +62,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.blueAccent,
+                          color: Colors.white,
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.all(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app1/screens/place_screen.dart';
 import 'package:weather_app1/utilities/constants.dart';
 import 'package:weather_app1/services/weather.dart';
-import 'package:jiffy/jiffy.dart';
+import 'package:intl/intl.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({this.locationWeatherInfo});
@@ -21,6 +21,9 @@ class _LocationScreenState extends State<LocationScreen> {
   String condition = '';
   String city = '';
   String nullMessage = '';
+  String convertedTime = '';
+  var dailyForecast;
+
   @override
   void initState() {
     super.initState();
@@ -30,13 +33,15 @@ class _LocationScreenState extends State<LocationScreen> {
   void changesUI(dynamic weatherInfo) {
     setState(() {
       if (weatherInfo == null) {
+        convertedTime = 'Error';
         currentTemperature = 0;
-        conditionCode = 'Error';
-        condition = 'Error';
         todayHighTemp = 0;
         todayLowTemp = 0;
-        nullMessage = 'Unable to Fetch Data.';
         tempMessage = '';
+        conditionCode = 'Error';
+        condition = 'Error';
+        nullMessage = 'Unable to Fetch Data.';
+        city = 'Error';
         return;
       }
       double currentTemp = weatherInfo['current']['temp_c'];
@@ -44,6 +49,10 @@ class _LocationScreenState extends State<LocationScreen> {
           weatherInfo["forecast"]["forecastday"][0]["day"]["maxtemp_c"];
       double todayLow =
           weatherInfo["forecast"]["forecastday"][0]["day"]["mintemp_c"];
+      String now = weatherInfo["location"]["localtime"];
+      DateTime dateTime = DateFormat("yyyy-MM-dd HH:mm").parse(now);
+      dailyForecast = weatherInfo["forecast"]["forecastday"][0]["date"];
+      convertedTime = DateFormat("yyyy-MM-dd HH:mm").format(dateTime);
       currentTemperature = currentTemp.toInt();
       todayHighTemp = todayHigh.toInt();
       todayLowTemp = todayLow.toInt();
@@ -64,10 +73,9 @@ class _LocationScreenState extends State<LocationScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images_and_icons/location_day_background.jpg'),
+              image:
+                  AssetImage('images_and_icons/location_night_background.jpg'),
               fit: BoxFit.cover,
-              // colorFilter: ColorFilter.mode(
-              //     Colors.white.withOpacity(0), BlendMode.dstATop),
             ),
           ),
           constraints: BoxConstraints.expand(),
@@ -102,9 +110,17 @@ class _LocationScreenState extends State<LocationScreen> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          '$city',
-                          style: kMessageTextStyle,
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              '$city',
+                              style: kMessageTextStyle,
+                            ),
+                            Text(
+                              '$convertedTime',
+                              style: kSubHeaderStyle,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -204,7 +220,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                     Divider(
                       color: Colors.white,
-                      thickness: 0.6,
+                      thickness: 0.1,
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -213,6 +229,10 @@ class _LocationScreenState extends State<LocationScreen> {
                           Text(
                             'DAILY FORECAST',
                             style: kForeCastHeaderStyle,
+                          ),
+                          Text(
+                            '$dailyForecast',
+                            style: kSubHeaderStyle,
                           ),
                         ],
                       ),
@@ -225,9 +245,10 @@ class _LocationScreenState extends State<LocationScreen> {
                     children: <Widget>[
                       Image.network(
                         'https://cdn.weatherapi.com/v4/images/weatherapi_logo.png',
+                        width: MediaQuery.of(context).size.width * 0.20,
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 5,
                       ),
                       Text(
                         'Powered by WeatherAPI.com',

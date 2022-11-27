@@ -7,7 +7,7 @@ const weatherapiURL = 'https://api.weatherapi.com/v1/forecast.json';
 class WeatherHelper {
   Future<dynamic> placeFunc(String placeName) async {
     HelpNetwork helpNetwork =
-        HelpNetwork('$weatherapiURL?key=$key&q=$placeName&days=5&aqi=no');
+        HelpNetwork('$weatherapiURL?key=$key&q=$placeName&days=7&aqi=no');
 
     var weatherInfo = await helpNetwork.info();
     return weatherInfo;
