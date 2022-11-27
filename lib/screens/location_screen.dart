@@ -45,17 +45,17 @@ class _LocationScreenState extends State<LocationScreen> {
         return;
       }
       double currentTemp = weatherInfo['current']['temp_c'];
+      currentTemperature = currentTemp.toInt();
       double todayHigh =
           weatherInfo["forecast"]["forecastday"][0]["day"]["maxtemp_c"];
+      todayHighTemp = todayHigh.toInt();
       double todayLow =
           weatherInfo["forecast"]["forecastday"][0]["day"]["mintemp_c"];
+      todayLowTemp = todayLow.toInt();
       String now = weatherInfo["location"]["localtime"];
       DateTime dateTime = DateFormat("yyyy-MM-dd HH:mm").parse(now);
-      dailyForecast = weatherInfo["forecast"]["forecastday"][0]["date"];
       convertedTime = DateFormat("yyyy-MM-dd HH:mm").format(dateTime);
-      currentTemperature = currentTemp.toInt();
-      todayHighTemp = todayHigh.toInt();
-      todayLowTemp = todayLow.toInt();
+      dailyForecast = weatherInfo["forecast"]["forecastday"][0]["date"];
       tempMessage = weatherHelper.WeatherMessage(currentTemperature);
       conditionCode = weatherHelper.WeatherIcon(
           weatherInfo['current']['condition']['code'],
@@ -220,7 +220,7 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                     Divider(
                       color: Colors.white,
-                      thickness: 0.1,
+                      thickness: 0.5,
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
