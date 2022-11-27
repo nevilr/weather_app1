@@ -18,8 +18,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image:
-                  AssetImage('images_and_icons/location_night_background.jpg'),
+              image: AssetImage(
+                  'images_and_icons/location_day-clear_background.webp'),
               fit: BoxFit.cover,
             ),
           ),

@@ -73,8 +73,8 @@ class _LocationScreenState extends State<LocationScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image:
-                  AssetImage('images_and_icons/location_night_background.jpg'),
+              image: AssetImage(
+                  'images_and_icons/location_day-clear_background.webp'),
               fit: BoxFit.cover,
             ),
           ),
@@ -180,7 +180,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                '$condition°',
+                                '$condition',
                                 style: kConditionTextStyle,
                               ),
                               SizedBox(
@@ -220,23 +220,23 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                     Divider(
                       color: Colors.white,
-                      thickness: 0.5,
+                      thickness: 0.2,
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'DAILY FORECAST',
-                            style: kForeCastHeaderStyle,
-                          ),
-                          Text(
-                            '$dailyForecast',
-                            style: kSubHeaderStyle,
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                    //   child: Column(
+                    //     children: <Widget>[
+                    //       Text(
+                    //         'DAILY FORECAST',
+                    //         style: kForeCastHeaderStyle,
+                    //       ),
+                    //       Text(
+                    //         '$dailyForecast',
+                    //         style: kSubHeaderStyle,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
                 Padding(
