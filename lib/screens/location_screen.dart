@@ -22,7 +22,10 @@ class _LocationScreenState extends State<LocationScreen> {
   String city = '';
   String nullMessage = '';
   String convertedTime = '';
-  var dailyForecast;
+  String forecastDate = '';
+  String forecastCondition = '';
+  int forecastMaxTemp = 0;
+  int forecastMinTemp = 0;
 
   @override
   void initState() {
@@ -44,6 +47,7 @@ class _LocationScreenState extends State<LocationScreen> {
         city = 'Error';
         return;
       }
+
       double currentTemp = weatherInfo['current']['temp_c'];
       currentTemperature = currentTemp.toInt();
       double todayHigh =
@@ -54,8 +58,7 @@ class _LocationScreenState extends State<LocationScreen> {
       todayLowTemp = todayLow.toInt();
       String now = weatherInfo["location"]["localtime"];
       DateTime dateTime = DateFormat("yyyy-MM-dd HH:mm").parse(now);
-      convertedTime = DateFormat("yyyy-MM-dd HH:mm").format(dateTime);
-      dailyForecast = weatherInfo["forecast"]["forecastday"][0]["date"];
+      convertedTime = DateFormat("yyyy-MM-dd, HH:mm").format(dateTime);
       tempMessage = weatherHelper.WeatherMessage(currentTemperature);
       conditionCode = weatherHelper.WeatherIcon(
           weatherInfo['current']['condition']['code'],
@@ -81,7 +84,6 @@ class _LocationScreenState extends State<LocationScreen> {
           constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Row(
@@ -148,115 +150,161 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ],
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        0,
-                        20.0,
-                        0,
-                        10.0,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image(
-                                image: AssetImage(
-                                  '$conditionCode',
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.0,
-                              ),
-                              Text(
-                                '$currentTemperature°',
-                                style: kTempTextStyle,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                '$condition',
-                                style: kConditionTextStyle,
-                              ),
-                              SizedBox(
-                                width: 30.0,
-                              ),
-                              Icon(
-                                Icons.arrow_upward,
-                                size: 20.0,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                '$todayHighTemp°',
-                                style: kConditionTextStyle,
-                              ),
-                              SizedBox(
-                                width: 30.0,
-                              ),
-                              Icon(
-                                Icons.arrow_downward,
-                                size: 20.0,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                '$todayLowTemp°',
-                                style: kConditionTextStyle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.white,
-                      thickness: 0.2,
-                    ),
-                    // Padding(
-                    //   padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                    //   child: Column(
-                    //     children: <Widget>[
-                    //       Text(
-                    //         'DAILY FORECAST',
-                    //         style: kForeCastHeaderStyle,
-                    //       ),
-                    //       Text(
-                    //         '$dailyForecast',
-                    //         style: kSubHeaderStyle,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+                Center(
                   child: Column(
                     children: <Widget>[
-                      Image.network(
-                        'https://cdn.weatherapi.com/v4/images/weatherapi_logo.png',
-                        width: MediaQuery.of(context).size.width * 0.20,
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image(
+                                  image: AssetImage(
+                                    '$conditionCode',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50.0,
+                                ),
+                                Text(
+                                  '$currentTemperature°',
+                                  style: kTempTextStyle,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  '$condition',
+                                  style: kConditionTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 30.0,
+                                ),
+                                Icon(
+                                  Icons.arrow_upward,
+                                  size: 20.0,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  '$todayHighTemp°',
+                                  style: kConditionTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 30.0,
+                                ),
+                                Icon(
+                                  Icons.arrow_downward,
+                                  size: 20.0,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  '$todayLowTemp°',
+                                  style: kConditionTextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Powered by WeatherAPI.com',
-                        textAlign: TextAlign.center,
-                      )
                     ],
                   ),
-                )
+                ),
+                Card(
+                  elevation: 2,
+                  color:
+                      Theme.of(context).colorScheme.background.withOpacity(0.1),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'DAILY FORECAST',
+                          style: kForeCastHeaderStyle,
+                        ),
+                        for (var day in widget.locationWeatherInfo["forecast"]
+                            ["forecastday"])
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      day["date"],
+                                      style: kSubHeaderStyle,
+                                    ),
+                                    // Text(day["day"]["condition"]["icon"]),
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.arrow_upward,
+                                          size: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          (day["day"]["maxtemp_c"])
+                                                  .toInt()
+                                                  .toString() +
+                                              '°',
+                                          style: kSubHeaderStyle,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.arrow_upward,
+                                          size: 15.0,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          (day["day"]["mintemp_c"])
+                                                  .toInt()
+                                                  .toString() +
+                                              '°',
+                                          style: kSubHeaderStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Padding(
+                //   padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+                //   child: Column(
+                //     children: <Widget>[
+                //       Image.network(
+                //         'https://cdn.weatherapi.com/v4/images/weatherapi_logo.png',
+                //         width: MediaQuery.of(context).size.width * 0.20,
+                //       ),
+                //       SizedBox(
+                //         height: 5,
+                //       ),
+                //       Text(
+                //         'Powered by WeatherAPI.com',
+                //         textAlign: TextAlign.center,
+                //       )
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),

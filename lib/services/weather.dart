@@ -21,6 +21,9 @@ class WeatherHelper {
         '$weatherapiURL?key=$key&q=${location.latitude},${location.longitude}&aqi=no');
 
     var weatherInfo = await helpNetwork.info();
+
+    // weatherInfo["forecast"]["forecastday"].map((item) => print(item["date"]));
+
     return weatherInfo;
   }
 

@@ -45,7 +45,7 @@ const kInputTextStyle = TextStyle(
 );
 
 const kSubHeaderStyle = TextStyle(
-  fontSize: 12.0,
+  fontSize: 14.0,
   fontFamily: 'Spartan MB',
   color: Colors.white,
 );
