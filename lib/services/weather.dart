@@ -1,7 +1,7 @@
 import 'package:weather_app1/services/location.dart';
 import 'package:weather_app1/services/networking.dart';
 
-const key = '89dad2fb3cc746d383c184944223008';
+const key = 'API_KEY';
 const weatherapiURL = 'https://api.weatherapi.com/v1/current.json';
 
 class WeatherHelper {
